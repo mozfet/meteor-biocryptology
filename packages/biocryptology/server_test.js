@@ -1,4 +1,5 @@
-import { assert } from 'chai';
+import './server_test_stubs.js'
+import { assert } from 'chai'
 import Biocryptology from 'meteor/mozfet:biocryptology'
 
 describe('Biocryptology', function () {
@@ -7,7 +8,7 @@ describe('Biocryptology', function () {
   it('retrieves configuration', async function () {
     const result = await Biocryptology.requestConfiguration()
     assert.isObject(result)
-    console.log(result)
+    // console.log(result)
     assert.equal(result.authorization_endpoint, 'https://is.sb.biocryptology.net/V1/auth')
   })
 })

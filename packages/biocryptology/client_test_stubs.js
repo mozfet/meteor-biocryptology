@@ -7,7 +7,8 @@ Sinon.stub(ServiceConfiguration.configurations, 'findOne').callsFake(function ()
     loginStyle: 'popup',
     clientId: '1808160234578578bPGHzsTMKekYyE',
     secret: '9oRWHARUFoc62',
-    claims: ['email_verified', 'name', 'surname']
+    claims: ['email_verified', 'name', 'surname'],
+    authorization_endpoint: 'https://is.sb.biocryptology.net/V1/auth'
   }
 })
 

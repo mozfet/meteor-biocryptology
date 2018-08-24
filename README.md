@@ -20,7 +20,7 @@ In Meteor settings.json add server side only key:
   "loginStyle":  "popup",
   "clientId": "my-client-id",
   "secret": "my-client-secret",
-  "userFields": ["name", "surname"]
+  "claims": ["name", "surname"]
 }
 ```
 
@@ -61,7 +61,7 @@ For client side tests open browser and point it to ```localhost:3000```
 
 Create minimal Meteor app and add account packages:
 ```
-$ meteor create --minimal testApp
+$ meteor create --full testApp
 $ cd testApp
 $ meteor add accounts-base
 $ meteor add mozfet:biocryptology

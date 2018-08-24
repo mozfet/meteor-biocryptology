@@ -1,6 +1,6 @@
 {
   "name": "meteor-biocryptology",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An OpenID Connect implementation for account login using Biocryptology.com on Meteor.",
   "main": "server.js",
   "scripts": {

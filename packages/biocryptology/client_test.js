@@ -34,15 +34,9 @@ describe('Biocryptology', function () {
     })
   })
 
-  it('request config', async function () {
-    const result = await Biocryptology.requestConfig()
-    assert.isObject(result)
-    assert.equal(result.authorization_endpoint, 'https://is.sb.biocryptology.net/V1/auth')
-  })
-
   it('request credential', async function (done) {
     const cb = (resultOrError) => {
-      assert.notTypeOf(resultOrError, 'Error')
+      assert.typeOf(resultOrError, 'String')
       console.log('request credential cb resultOrError', resultOrError)
       done()
     }

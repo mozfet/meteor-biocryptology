@@ -1,6 +1,8 @@
 import { HTTP } from 'meteor/http'
 import { EJSON } from 'meteor/ejson'
-// import { ServiceConfiguration } from 'meteor/ServiceConfiguration'
+import { ServiceConfiguration } from 'meteor/service-configuration'
+
+console.log('Load Biocryptology Flow API')
 
 const Biocryptology = {}
 export default Biocryptology
@@ -8,17 +10,28 @@ export default Biocryptology
 /**
  * Configure service on server startup
  **/
-Meteor.startup(function () {
-  if (!_.isObject(Meteor.settings.biocryptology)) {
+Meteor.startup(async function () {
+  console.log('Setup Biocryptology Service')
+  if (_.isObject(Meteor.settings.biocryptology)) {
+    console.log('Biocryptology settings', Meteor.settings.biocryptology)
+
+    // retrieve the configuration from the biocryptology server and meteor settings
+    const openIdConfig = await Biocryptology.requestConfiguration()
+    config = Meteor.settings.biocryptology
+    config.authorization_endpoint = openIdConfig.authorization_endpoint
+    console.log('Biocryptology service config', config)
+
+    ServiceConfiguration.configurations.upsert(
+      { service: 'biocryptology' },
+      {
+        $set: config
+      }
+    )
+  }
+  else {
     throw new Meteor.Error('CONFIG_ERROR',
       'Missing Meteor Settings for Biocryptology')
   }
-  ServiceConfiguration.configurations.upsert(
-    { service: 'biocryptology' },
-    {
-      $set: Meteor.settings.biocryptology
-    }
-  )
 })
 
 /**
@@ -50,17 +63,6 @@ Biocryptology.requestConfiguration = function() {
   })
 }
 
-/**
- * Define meteor method to circumvent browser cors restrictions
- **/
-Meteor.methods({
-  'biocryptology.requestConfiguration': async function () {
-    return await Biocryptology.requestConfiguration
-  }
-})
-
-Biocryptology.whitelistedFields = ['id', 'email']
-
 Biocryptology.retrieveCredential = function (credentialToken, credentialSecret) {
   return OAuth.retrieveCredential(credentialToken, credentialSecret);
 }
@@ -70,13 +72,13 @@ OAuth.registerService('biocryptology', 2, null, function (query) {
 
       var debug = true;
       var token = getToken(query);
-      if (debug) console.log('XXX: register token:', token);
+      if (debug) console.log('register token:', token);
 
       var accessToken = token.access_token || token.id_token;
       var expiresAt = (+new Date) + (1000 * parseInt(token.expires_in, 10));
 
       var userinfo = getUserInfo(accessToken);
-      if (debug) console.log('XXX: userinfo:', userinfo);
+      if (debug) console.log('userinfo:', userinfo);
 
       var serviceData = {};
       serviceData.id = userinfo.id;
@@ -93,12 +95,12 @@ OAuth.registerService('biocryptology', 2, null, function (query) {
 
       if (token.refresh_token)
         serviceData.refreshToken = token.refresh_token;
-      if (debug) console.log('XXX: serviceData:', serviceData);
+      if (debug) console.log('serviceData:', serviceData);
 
       var profile = {};
       profile.name = userinfo.name;
       profile.email = userinfo.email;
-      if (debug) console.log('XXX: profile:', profile);
+      if (debug) console.log('profile:', profile);
 
       resolve({
         serviceData: serviceData,
@@ -144,7 +146,7 @@ var getToken = function (query) {
     // if the http response was a json object with an error attribute
     throw new Error("Failed to complete handshake with Biocryptology " + serverTokenEndpoint + ": " + response.data.error);
   } else {
-    if (debug) console.log('XXX: getToken response: ', response.data);
+    if (debug) console.log('getToken response: ', response.data);
     return response.data;
   }
 };

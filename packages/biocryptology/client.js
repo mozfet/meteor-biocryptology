@@ -1,25 +1,8 @@
+import { ServiceConfiguration } from 'meteor/service-configuration'
 import { _ } from 'meteor/underscore'
 
 const Biocryptology = {}
 export default Biocryptology
-
-/**
- * Request the config from the server.
- * RPC to Meteor server is needed due to CORS of url endpoint denied by browser.
- * @returns {Promise}
- **/
-Biocryptology.requestConfig = async function () {
-  return new Promise(function(resolve, reject) {
-    Meteor.call('biocryptology.requestConfiguration', (error, result) => {
-      if (error) {
-        reject(error)
-      }
-      else {
-        resolve(result)
-      }
-    })
-  })
-}
 
 // Request OpenID Connect credentials for the user
 // @param options {optional}
@@ -35,20 +18,16 @@ Biocryptology.requestCredential = async function (options, credentialRequestComp
   }
 
   // get the service configuration
-  var config = ServiceConfiguration.configurations.findOne({service: 'Biocryptology'});
+  var config = ServiceConfiguration.configurations.findOne({service: 'biocryptology'});
   if (!config) {
     credentialRequestCompleteCallback && credentialRequestCompleteCallback(
-        new ServiceConfiguration.ConfigError(
-        'Biocryptology service is not configured.')
+        new ServiceConfiguration.ConfigError('biocryptology')
     )
-    return
+    return undefined
   }
+  console.log('service config', config)
 
-  // retrieve the configuration from the server
-  const serviceConfig = await Biocryptology.requestConfig()
-  console.log('service config', serviceConfig)
-
-  // options
+  // prepare options
   const credentialToken = Random.secret()
   const loginStyle = OAuth._loginStyle('biocryptology', config, options)
   const scope = config.requestPermissions || ['openid']
@@ -60,17 +39,25 @@ Biocryptology.requestCredential = async function (options, credentialRequestComp
   options.state = OAuth._stateParam(loginStyle, credentialToken,
     options.redirectUrl)
   options.scope = scope.join(' ')
-  if (config.loginStyle && config.loginStyle == 'popup') {
-    options.loginStyle = options.display = 'popup'
-  }
-  options.claims = config.claims || 'email_verified'
-  console.log('options', options)
 
   // prepare login url
-  const loginUrl = serviceConfig.authorization_endpoint+'?'+
+  let loginUrl = config.authorization_endpoint+'?'+
     _.chain(options).keys().map(key => {
       return encodeURIComponent(key)+'='+encodeURIComponent(options[key])
     }).value().join('&')
+  const claims = {userinfo:{}}
+  if (_.isArray(config.claims)) {
+    for (let claim of config.claims) {
+      claims.userinfo[claim] = null
+    }
+  }
+  else {
+    claims = {userinfo: {'email_verified': null}}
+  }
+  console.log('claims', claims)
+  const claimsJson = EJSON.stringify(claims)
+  loginUrl += '&claims='+encodeURIComponent(claimsJson)
+  // loginUrl += '&claims='+claimsJson
   console.log('loginURL: ' + loginUrl)
 
   // prepare popup options
