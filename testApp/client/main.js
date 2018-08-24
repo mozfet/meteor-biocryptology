@@ -1,3 +1,4 @@
-import './loginButton'
+// Client entry point, imports all client code
 
-console.log(`Greetings from ${module.id}!`)
+import '/imports/startup/client';
+import '/imports/startup/both';

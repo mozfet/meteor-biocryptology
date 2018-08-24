@@ -1,3 +1,4 @@
 node_modules/
 packages/
+imports/stash
 settings-production.json

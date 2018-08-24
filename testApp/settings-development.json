@@ -3,6 +3,6 @@
     "loginStyle":  "popup",
     "clientId": "1808160234578578bPGHzsTMKekYyE",
     "secret": "9oRWHARUFoc62",
-    "userFields": ["email_verified", "name", "surname"]
+    "claims": ["email_verified", "name", "surname"]
   }
 }
