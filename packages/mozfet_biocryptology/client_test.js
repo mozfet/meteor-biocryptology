@@ -41,5 +41,5 @@ describe('Biocryptology', function () {
       done()
     }
     Biocryptology.requestCredential(null, cb)
-  })
+  })  
 })

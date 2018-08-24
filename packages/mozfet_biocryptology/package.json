@@ -1,7 +1,7 @@
 {
   "name": "meteor-biocryptology",
   "version": "0.0.2",
-  "description": "An OpenID Connect implementation for account login using Biocryptology.com on Meteor.",
+  "description": "OpenID Connect flow implementation for Biocryptology on Meteor.",
   "main": "server.js",
   "scripts": {
     "test": "TEST_WATCH=1 meteor test-packages ./ --driver-package meteortesting:mocha",

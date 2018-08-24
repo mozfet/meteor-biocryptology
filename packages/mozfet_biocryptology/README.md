@@ -1,9 +1,8 @@
 # meteor-biocryptology
 
-An OpenID Connect implementation for account login using Biocryptology.com on Meteor.
+OpenID Connect flow implementation for Biocryptology on Meteor.
 
-This package implements the Biocryptology OpenId flow and is designed for use together with the ```mozfet:biocryptology-accounts``` package for integration
-with Meteor Accounts.
+This package is designed for use with the ```mozfet:biocryptology-accounts``` package for integration with Meteor Accounts.
 
 ## Installation
 Using command line terminal, in your application's project folder

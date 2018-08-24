@@ -89,7 +89,7 @@ OAuth.registerService('biocryptology', 2, null, function (query) {
 
       if (accessToken) {
         var tokenContent = getTokenContent(accessToken);
-        var fields = _.pick(tokenContent, getConfiguration().idTokenWhitelistFields);
+        var fields = _.pick(tokenContent, getConfiguration().claims);
         _.extend(serviceData, fields);
       }
 
@@ -163,9 +163,9 @@ var getUserInfo = function (accessToken) {
 };
 
 var getConfiguration = function () {
-  var config = ServiceConfiguration.configurations.findOne({ service: 'Biocryptology' });
+  var config = ServiceConfiguration.configurations.findOne({ service: 'biocryptology' });
   if (!config) {
-    throw new ServiceConfiguration.ConfigError('Service Biocryptology not configured.');
+    throw new ServiceConfiguration.ConfigError('biocryptology.');
   }
   return config;
 };
