@@ -1,6 +1,3 @@
-import {Accounts} from 'meteor/accounts'
-import Biocryptology from 'meteor/mozfet:biocryptology'
-
 Accounts.oauth.registerService('biocryptology')
 
 Accounts.addAutopublishFields({
