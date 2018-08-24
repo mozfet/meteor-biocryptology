@@ -1,0 +1,30 @@
+{
+  "name": "meteor-biocryptology",
+  "version": "0.0.1",
+  "description": "An OpenID Connect implementation for account login using Biocryptology.com on Meteor.",
+  "main": "server.js",
+  "scripts": {
+    "test": "TEST_WATCH=1 meteor test-packages ./ --driver-package meteortesting:mocha",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mozfet/meteor-biocryptology.git"
+  },
+  "keywords": [
+    "Biocryptology",
+    "Meteor",
+    "OpenID",
+    "Accounts"
+  ],
+  "author": "Wynand Vermeulen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mozfet/meteor-biocryptology/issues"
+  },
+  "homepage": "https://github.com/mozfet/meteor-biocryptology#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "sinon": "^6.1.5"
+  }
+}
