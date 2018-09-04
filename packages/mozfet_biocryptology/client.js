@@ -36,6 +36,7 @@ Biocryptology.requestCredential = async function (options, credentialRequestComp
   options.response_type = options.response_type || 'token'
   options.nonce = options.nonce || 'asas'   //@TODO is this some type of random?
   options.redirect_uri = OAuth._redirectUri('biocryptology', config)
+  // options.redirect_uri = config.callbackUrl
   options.state = OAuth._stateParam(loginStyle, credentialToken,
     options.redirectUrl)
   options.scope = scope.join(' ')

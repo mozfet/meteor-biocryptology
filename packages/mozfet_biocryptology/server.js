@@ -15,17 +15,14 @@ Meteor.startup(async function () {
   if (_.isObject(Meteor.settings.biocryptology)) {
     console.log('Biocryptology settings', Meteor.settings.biocryptology)
 
-    // retrieve the configuration from the biocryptology server and meteor settings
+    // retrieve configuration from biocryptology server and meteor settings
     const openIdConfig = await Biocryptology.requestConfiguration()
     config = Meteor.settings.biocryptology
     config.authorization_endpoint = openIdConfig.authorization_endpoint
     console.log('Biocryptology service config', config)
 
     ServiceConfiguration.configurations.upsert(
-      { service: 'biocryptology' },
-      {
-        $set: config
-      }
+      { service: 'biocryptology' }, {$set: config}
     )
   }
   else {
@@ -68,17 +65,16 @@ Biocryptology.retrieveCredential = function (credentialToken, credentialSecret) 
 }
 
 OAuth.registerService('biocryptology', 2, null, function (query) {
-      console.log('here2')
+      console.log('Biocryptology Service Query', query)
 
-      var debug = true;
       var token = getToken(query);
-      if (debug) console.log('register token:', token);
+      console.log('registration token:', token);
 
       var accessToken = token.access_token || token.id_token;
       var expiresAt = (+new Date) + (1000 * parseInt(token.expires_in, 10));
 
       var userinfo = getUserInfo(accessToken);
-      if (debug) console.log('userinfo:', userinfo);
+      console.log('userinfo:', userinfo);
 
       var serviceData = {};
       serviceData.id = userinfo.id;
@@ -95,12 +91,12 @@ OAuth.registerService('biocryptology', 2, null, function (query) {
 
       if (token.refresh_token)
         serviceData.refreshToken = token.refresh_token;
-      if (debug) console.log('serviceData:', serviceData);
+      console.log('serviceData:', serviceData);
 
       var profile = {};
       profile.name = userinfo.name;
       profile.email = userinfo.email;
-      if (debug) console.log('profile:', profile);
+      console.log('profile:', profile);
 
       resolve({
         serviceData: serviceData,
