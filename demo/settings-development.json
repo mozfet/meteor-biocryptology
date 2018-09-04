@@ -1,0 +1,9 @@
+{
+  "biocryptology": {
+    "loginStyle":  "popup",
+    "clientId": "1808251124098993bdpkmEZm1izMS1",
+    "secret": "KBrPGaqhWicmN",
+    "claims": ["email_verified", "name", "surname"],
+    "callbackUrl": "http://160.226.132.146:3200/_oauth/biocryptology"
+  }
+}

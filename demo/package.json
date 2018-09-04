@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "test": "meteor test --once --driver-package meteortesting:mocha"
+    "test": "meteor test --once --driver-package meteortesting:mocha",
+    "deploy": "DEPLOY_HOSTNAME=eu-west-1.galaxy.meteor.com meteor deploy www.expertbox.com --settings settings-production.json"
   },
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.55",
