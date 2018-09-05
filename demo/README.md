@@ -5,7 +5,7 @@ Demo Application showing Login with Biocryptology on Meteor.
 # See it in action
 
 <video width="480" height="320" controls="controls">
-  <source src="biocryptology_demo.mp4" type="video/mp4">
+  <source src="https://github.com/mozfet/meteor-biocryptology/blob/master/demo/biocryptology_demo.mp4" type="video/mp4">
 </video>
 
 # Running the demo on localhost
