@@ -2,6 +2,12 @@
 
 Demo Application showing Login with Biocryptology on Meteor.
 
+# See it in action
+
+<video width="480" height="320" controls="controls">
+  <source src="biocryptology_demo.mp4" type="video/mp4">
+</video>
+
 # Running the demo on localhost
 
 1. Clone this git repository and navigate to this directory on you local machine.
