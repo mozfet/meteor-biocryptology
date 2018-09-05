@@ -1,7 +1,7 @@
 Package.describe({
   name: 'mozfet:accounts-biocryptology',
   summary: 'Biocryptology OpenID Connect for Meteor Accounts.',
-  version: '1.0.2',
+  version: '1.0.4',
   git: 'https://github.com/mozfet/meteor-biocryptology.git'
 });
 
@@ -11,7 +11,7 @@ Package.onUse(function(api) {
     'ecmascript',
     'accounts-base',
     'accounts-oauth',
-    'mozfet:biocryptology@1.0.2'
+    'mozfet:biocryptology@1.0.4'
   ]);
   api.imply('accounts-base')
   api.mainModule('server.js', 'server')

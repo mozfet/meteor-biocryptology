@@ -1,6 +1,6 @@
 # meteor-biocryptology
 
-Biocryptology OpenID Connect for Meteor Accounts.
+[Biocryptology](https://www.biocryptology.com/) OpenID Connect for Meteor Accounts.
 
 This package is uses the ```mozfet:biocryptology``` package which contains the Biocryptology OpenID Connect flow.
 

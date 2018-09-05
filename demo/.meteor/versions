@@ -61,8 +61,8 @@ modules-runtime@0.10.2
 mongo@1.5.1
 mongo-dev-server@1.1.0
 mongo-id@1.0.7
-mozfet:accounts-biocryptology@1.0.2
-mozfet:biocryptology@1.0.2
+mozfet:accounts-biocryptology@1.0.4
+mozfet:biocryptology@1.0.4
 npm-mongo@3.0.11
 oauth@1.2.3
 oauth2@1.2.0
