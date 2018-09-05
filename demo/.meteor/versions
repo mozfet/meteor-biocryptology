@@ -62,7 +62,7 @@ mongo@1.5.1
 mongo-dev-server@1.1.0
 mongo-id@1.0.7
 mozfet:accounts-biocryptology@0.0.3
-mozfet:biocryptology@0.0.3
+mozfet:biocryptology@0.0.5
 npm-mongo@3.0.11
 oauth@1.2.3
 observe-sequence@1.0.16

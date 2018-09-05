@@ -83,4 +83,10 @@ MIT - See <LICENCE> file in this directory.
 [CLAIMS] -> using a user claims json to receive only the requested values. http://localhost:8080/V1/auth?client_id=biocryptology&scope=openid&state=170894&redirect_uri=http://biocryptology.net&response_type=token&nonce=asas&claims={"userinfo":{"address":null,"nickname":null,"email":null}}
 
 ## Example Messages
-https://is.sb.biocryptology.net/V1/auth?client_id=1808251124098993bdpkmEZm1izMS1&response_type=token&nonce=asas&redirect_uri=https%253A%252F%252F694cd9cc.ngrok.io%252F_oauth%252Fbiocryptology&state=eyJsb2dpblN0eWxlIjoicG9wdXAiLCJjcmVkZW50aWFsVG9rZW4iOiI2VHlhT2tiN1ZRbnh1V002b19YOXFwYWtuek9zeklEV3liODB5TXhDcWVaIiwiaXNDb3Jkb3ZhIjpmYWxzZX0%3D&scope=openid&claims=%7B%22userinfo%22%3A%7B%22email_verified%22%3Anull%2C%22name%22%3Anull%2C%22surname%22%3Anull%7D%7D
+OATH2 Implicit Flow? VS OpenId Connect?
+
+Demo Auth Request
+https://is.sb.biocryptology.net/V1/auth?client_id=1809040824169161LhyBYDM3Z4441u&response_type=code&nonce=aILaN0rQQUKRr5eopvJ6uFjHXWezn_wfiGwxXTIfprV&redirect_uri=http%3A%2F%2F160.226.132.146%3A3200%2F_oauth%2Fbiocryptology&state=eyJsb2dpblN0eWxlIjoicG9wdXAiLCJjcmVkZW50aWFsVG9rZW4iOiJhSUxhTjByUVFVS1JyNWVvcHZKNnVGakhYV2V6bl93ZmlHd3hYVElmcHJWIiwiaXNDb3Jkb3ZhIjpmYWxzZX0%3D&scope=email%20openid&claims=%7B%22userinfo%22%3A%7B%22given_name%22%3A%7B%22essential%22%3Atrue%7D%2C%22family_name%22%3A%7B%22essential%22%3Atrue%7D%2C%22prefered_username%22%3A%7B%22essential%22%3Atrue%7D%2C%22locale%22%3A%7B%22essential%22%3Atrue%7D%7D%2C%22id_token%22%3A%7B%22auth_time%22%3A%7B%22essential%22%3Atrue%7D%7D%7D
+
+Demo Auth Response
+http://160.226.132.146:3200/_oauth/biocryptology?state=eyJsb2dpblN0eWxlIjoicG9wdXAiLCJjcmVkZW50aWFsVG9rZW4iOiJhSUxhTjByUVFVS1JyNWVvcHZKNnVGakhYV2V6bl93ZmlHd3hYVElmcHJWIiwiaXNDb3Jkb3ZhIjpmYWxzZX0%3D&code=pH-arMcPM8NVfqaMWvr5dQ

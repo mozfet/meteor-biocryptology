@@ -30,15 +30,21 @@ Biocryptology.requestCredential = async function (options, credentialRequestComp
   // prepare options
   const credentialToken = Random.secret()
   const loginStyle = OAuth._loginStyle('biocryptology', config, options)
-  const scope = config.requestPermissions || ['openid']
+  const scope = config.scopes || ['openid']
   options = options || {}
   options.client_id = config.clientId;
-  options.response_type = options.response_type || 'token'
-  options.nonce = options.nonce || 'asas'   //@TODO is this some type of random?
-  options.redirect_uri = OAuth._redirectUri('biocryptology', config)
-  // options.redirect_uri = config.callbackUrl
+  options.response_type = options.response_type || 'code'
+  options.nonce = credentialToken
+  if (config.callbackUrl) {
+    options.redirect_uri = config.callbackUrl
+  }
+  else {
+    options.redirect_uri = OAuth._redirectUri('biocryptology', config)
+  }
+  console.log('redirect uri:', options.redirect_uri)
   options.state = OAuth._stateParam(loginStyle, credentialToken,
-    options.redirectUrl)
+    options.redirect_uri)
+  console.log('redirect state:', options.state)
   options.scope = scope.join(' ')
 
   // prepare login url
@@ -46,26 +52,26 @@ Biocryptology.requestCredential = async function (options, credentialRequestComp
     _.chain(options).keys().map(key => {
       return encodeURIComponent(key)+'='+encodeURIComponent(options[key])
     }).value().join('&')
-  const claims = {userinfo:{}}
+  const claims = {userinfo: {}, id_token: {auth_time: {essential: true}}}
   if (_.isArray(config.claims)) {
     for (let claim of config.claims) {
-      claims.userinfo[claim] = null
+      claims.userinfo[claim] = {essential: true}
     }
   }
   else {
-    claims = {userinfo: {'email_verified': null}}
+    claims.userinfo.email_verified = {essential: true}
   }
   console.log('claims', claims)
   const claimsJson = EJSON.stringify(claims)
-  loginUrl += '&claims='+encodeURIComponent(claimsJson)
+  // loginUrl += '&claims='+encodeURIComponent(claimsJson)
   // loginUrl += '&claims='+claimsJson
   console.log('loginURL: ' + loginUrl)
 
   // prepare popup options
   options.popupOptions = options.popupOptions || {};
   const popupOptions = {
-    width:  options.popupOptions.width || 320,
-    height: options.popupOptions.height || 450
+    width:  options.popupOptions.width || 600,
+    height: options.popupOptions.height || 400
   }
 
   // launch login
