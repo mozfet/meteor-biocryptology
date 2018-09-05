@@ -2,7 +2,7 @@ import { HTTP } from 'meteor/http'
 import { EJSON } from 'meteor/ejson'
 import { ServiceConfiguration } from 'meteor/service-configuration'
 
-console.log('Load Biocryptology Flow API')
+// console.log('Load Biocryptology Flow API')
 
 const Biocryptology = {}
 export default Biocryptology
@@ -11,9 +11,7 @@ export default Biocryptology
  * Configure service on server startup
  **/
 Meteor.startup(async function () {
-  console.log('Setup Biocryptology Service')
   if (_.isObject(Meteor.settings.biocryptology)) {
-    console.log('Biocryptology settings', Meteor.settings.biocryptology)
 
     // retrieve configuration from biocryptology server and meteor settings
     const openIdConfig = await Biocryptology.requestConfiguration()
@@ -22,8 +20,7 @@ Meteor.startup(async function () {
     config.token_endpoint = openIdConfig.token_endpoint
     config.userinfo_endpoint = openIdConfig.userinfo_endpoint
     config.end_session_endpoint = openIdConfig.end_session_endpoint
-
-    console.log('Biocryptology service config', config)
+    // console.log('Biocryptology service config', config)
 
     ServiceConfiguration.configurations.upsert(
       { service: 'biocryptology' }, {$set: config}
@@ -69,7 +66,7 @@ Biocryptology.retrieveCredential = function (credentialToken, credentialSecret) 
 }
 
 OAuth.registerService('biocryptology', 2, null, function (query) {
-      console.log('Biocryptology Service Query', query)
+      // console.log('Biocryptology Service Query', query)
 
       var token = getToken(query)
       console.log('biocryptology service token:', token)
@@ -82,7 +79,7 @@ OAuth.registerService('biocryptology', 2, null, function (query) {
 
       var serviceData = {
         id: userinfo.sub,
-        username: userinfo.username,
+        // username: userinfo.username,
         accessToken: OAuth.sealSecret(token.access_token),
         expiresAt: userinfo.expiresAt,
         email: userinfo.email,
@@ -142,7 +139,7 @@ var getToken = function (query) {
     throw new Error("Failed to complete handshake with Biocryptology " +
         serverTokenEndpoint + ": " + response.data.error)
   } else {
-    if (debug) console.log('getToken response: ', response.data)
+    // console.log('getToken response: ', response.data)
     return response.data;
   }
 }
@@ -151,7 +148,7 @@ var getUserInfo = function (token) {
   const config = getConfiguration()
 
   if (config.userinfo_endpoint) {
-    console.log('getting user info from endpoint')
+    // console.log('getting user info from endpoint')
     try {
       const response = HTTP.get(config.userinfo_endpoint, {
         headers: {

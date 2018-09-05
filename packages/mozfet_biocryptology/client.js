@@ -25,7 +25,7 @@ Biocryptology.requestCredential = async function (options, credentialRequestComp
     )
     return undefined
   }
-  console.log('service config', config)
+  // console.log('service config', config)
 
   // prepare options
   const credentialToken = Random.secret()
@@ -41,10 +41,10 @@ Biocryptology.requestCredential = async function (options, credentialRequestComp
   else {
     options.redirect_uri = OAuth._redirectUri('biocryptology', config)
   }
-  console.log('redirect uri:', options.redirect_uri)
+  // console.log('redirect uri:', options.redirect_uri)
   options.state = OAuth._stateParam(loginStyle, credentialToken,
     options.redirect_uri)
-  console.log('redirect state:', options.state)
+  // console.log('redirect state:', options.state)
   options.scope = scope.join(' ')
 
   // prepare login url
@@ -61,17 +61,17 @@ Biocryptology.requestCredential = async function (options, credentialRequestComp
   else {
     claims.userinfo.email_verified = {essential: true}
   }
-  console.log('claims', claims)
+  // console.log('claims', claims)
   const claimsJson = EJSON.stringify(claims)
-  // loginUrl += '&claims='+encodeURIComponent(claimsJson)
+  loginUrl += '&claims='+encodeURIComponent(claimsJson)
   // loginUrl += '&claims='+claimsJson
   console.log('loginURL: ' + loginUrl)
 
   // prepare popup options
   options.popupOptions = options.popupOptions || {};
   const popupOptions = {
-    width:  options.popupOptions.width || 600,
-    height: options.popupOptions.height || 400
+    width:  options.popupOptions.width || 800,
+    height: options.popupOptions.height || 800
   }
 
   // launch login
@@ -83,6 +83,6 @@ Biocryptology.requestCredential = async function (options, credentialRequestComp
     credentialToken,
     popupOptions,
   }
-  console.log('launchOptions', launchOptions)
+  // console.log('launchOptions', launchOptions)
   OAuth.launchLogin(launchOptions)
 }
