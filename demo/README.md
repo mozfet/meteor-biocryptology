@@ -4,7 +4,7 @@ Demo Application showing Login with Biocryptology on Meteor.
 
 # See it in action
 
-![Animated Gif of Demo](https://github.com/mozfet/meteor-biocryptology/blob/master/demo/biocryptology_demo.)
+![Animated Gif of Demo](https://github.com/mozfet/meteor-biocryptology/blob/master/demo/biocryptology_demo.gif)
 
 # Running the demo on localhost
 
