@@ -2,8 +2,8 @@
   "name": "testApp",
   "private": true,
   "scripts": {
-    "deploy": "DEPLOY_HOSTNAME=eu-west-1.galaxy.meteor.com mymeteor deploy biocryptology.eu.meteorapp.com --settings settings-production.json",
-    "start": "mymeteor --port 3200 --settings settings-development.json"
+    "deploy": "DEPLOY_HOSTNAME=eu-west-1.galaxy.meteor.com meteor deploy biocryptology.eu.meteorapp.com --settings settings-production.json",
+    "start": "meteor --port 3200 --settings settings-development.json"
   },
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.55",

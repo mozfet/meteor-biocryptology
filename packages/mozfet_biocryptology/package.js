@@ -11,8 +11,9 @@ Package.onUse(function(api) {
     'ecmascript',
     'http',
     'ejson',
+    'accounts-base',
     'oauth2',
-    'oauth',    
+    'oauth',
     'random',
     'underscore',
     'service-configuration'

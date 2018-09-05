@@ -1,3 +1,5 @@
 <template name="loginButton">
-  <button class="js-login-button">Login</button>
+  {{#unless currentUser}}
+    <button class="js-login-button">Login</button>
+  {{/unless}}
 </template>

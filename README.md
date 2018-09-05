@@ -12,26 +12,45 @@ $ meteor add mozfet:accounts-biocryptology
 
 ## Configuration
 
-The following configuration items are available:
-* loginStyle: optional - 'popup' (default) or 'redirect'
-* clientId: OIDC client identifier
-* secret: OIDC client shared secret
-* userFields: A optional list of fields to be added to Meteor.user().services.biocryptology. Defaults to 'email_verified'.
+Create ```settings-developement.json``` and ```settings-production.json``` in app project folder. Use sandbox clientId and secret in ```settings-developement.json```. Use live clientId and secret in ```settings-developement.json```. Do not upload unencrypted ```settings-production.json``` to source code repositories for security reasons.
 
-Create ```settings-developement.json``` and ```settings-production.json``` in app project folder. Use sandbox clientId and secret in ```settings-developement.json```. Use live clientId and secret in ```settings-developement.json```. Do not upload ```settings-production.json``` unencrypted to source code repositories for security reasons.
-
+In ```settings-developement.json``` add:
 ```json
-"biocryptology": {
-  "loginStyle":  "popup",
-  "clientId": "my-client-id",
-  "secret": "my-client-secret",
-  "claims": ["email_verified", "name", "surname"]
+{
+  "biocryptology": {
+    "loginStyle":  "popup",
+    "clientId": "your-dev-client-id",
+    "secret": "your-dev-secret",
+    "scopes": ["email", "openid"],
+    "claims": ["given_name", "family_name", "prefered_username", "locale"],
+    "callbackUrl": "http://160.226.132.146:3200/_oauth/biocryptology"
+  }
 }
 ```
+Note that on a local host environment the callbackUrl is needed to defined your external IP and an open inbound port where your DEVC server is running. You will also need to use a VPN in order to run locally so that your external IP resolves for the callback from the authentication server.
+
+In ```settings-production.json``` add:
+```
+{
+  "biocryptology": {
+    "loginStyle":  "popup",
+    "clientId": "your-prod-client-id",
+    "secret": "your-prod-secret",
+    "scopes": ["email", "openid"],
+    "claims": ["given_name", "family_name", "prefered_username", "locale"]
+  }
+}
+```
+Note that in PROD you should not specify the callback URL, it will be detected by automagically by Meteor.
 
 ## Usage
 
-In your client code:
+Login using client side code:
 ```js
 Meteor.loginWithBiocryptology()
+```
+
+Logout using client side code:
+```js
+Meteor.logout()
 ```

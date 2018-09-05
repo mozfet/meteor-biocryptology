@@ -4,89 +4,62 @@ OpenID Connect flow implementation for Biocryptology on Meteor.
 
 This package is designed for use with the ```mozfet:biocryptology-accounts``` package for integration with Meteor Accounts.
 
+# meteor-biocryptology
+
+Login with Biocryptology on Meteor.
+
 ## Installation
-Using command line terminal, in your application's project folder
+
+Use the command line terminal in your project directory.
 ```
-$ meteor add mozfet:biocryptology
+$ meteor add mozfet:accounts-biocryptology
 ```
 
 ## Configuration
 
-The following configuration items are available:
-* loginStyle: optional - 'popup' (default) or 'redirect'
-* clientId: OIDC client identifier
-* secret: OIDC client shared secret
-* userFields: A optional list of fields to be added to Meteor.user().services.biocryptology. Defaults to 'email_verified'.
+Create ```settings-developement.json``` and ```settings-production.json``` in app project folder. Use sandbox clientId and secret in ```settings-developement.json```. Use live clientId and secret in ```settings-developement.json```. Do not upload unencrypted ```settings-production.json``` to source code repositories for security reasons.
 
-In Meteor settings.json add server side only key:
-```
-"biocryptology": {
-  "loginStyle":  "popup",
-  "clientId": "my-client-id",
-  "secret": "my-client-secret",
-  "claims": ["email_verified", "name", "surname"]
+In ```settings-developement.json``` add:
+```json
+{
+  "biocryptology": {
+    "loginStyle":  "popup",
+    "clientId": "your-dev-client-id",
+    "secret": "your-dev-secret",
+    "scopes": ["email", "openid"],
+    "claims": ["given_name", "family_name", "prefered_username", "locale"],
+    "callbackUrl": "http://160.226.132.146:3200/_oauth/biocryptology"
+  }
 }
 ```
+Note that on a local host environment the callbackUrl is needed to defined your external IP and an open inbound port where your DEVC server is running. You will also need to use a VPN in order to run locally so that your external IP resolves for the callback from the authentication server.
+
+In ```settings-production.json``` add:
+```
+{
+  "biocryptology": {
+    "loginStyle":  "popup",
+    "clientId": "your-prod-client-id",
+    "secret": "your-prod-secret",
+    "scopes": ["email", "openid"],
+    "claims": ["given_name", "family_name", "prefered_username", "locale"]
+  }
+}
+```
+Note that in PROD you should not specify the callback URL, it will be detected by automagically by Meteor.
 
 ## Usage
 
-In client side code:
+Login using client side code:
 ```js
-import { Biocryptology } from 'meteor/mozfet:biocrpytology'
-const config = Biocryptology.requestConfig()
-Biocryptology.requestCredential(null, errorOrResult => {})
+Meteor.loginWithBiocryptology()
 ```
 
-## Testing
-Testing includes unit and integration tests.
-
-Install test frameworks
-```
-$ meteor npm install
-```
-
-Run tests
-```
-$ meteor npm run test
-```
-
-In order to run demo from any local machine even behind a firewall without screwing about with HTTPS certs, ect, we are going to tunnel to local host.
-
-1. Open an [ngrok](ngrok.com) acount and install the binary in your user folder.
-3. Open a new terminal and run ```~/ngrok http 3000```
-4. Copy the forwarding https address from ngrok session info, e.g. ```http://2e7e83d5.ngrok.io```
-5. Edit client_test_stubs and change the ServiceConfiguration stub callbackUrl to start with the ngrok https forwarding address, e.g.:
-```
-https://e77cd7b7.ngrok.io/_oauth/biocrpytology
-```
-5. Go to [Biocryptology sandbox](https://is.sb.biocryptology.net/).
-6. Click on link device button. The generate result button appears. Click on generate result button.
-7. The sandbox profile for test user HANSCANA HANSSA is shown. Click on Plug-ins in left side menu. Click on 'ADD PLUGIN' button.
-8. Add an Icon (100kb seems to be the max size). Enter your projects name as the description. Specify the the callbackURL as per step 5, and save.
-9. Open browser and point it to ```localhost:3000```
-
-## Publish to Atmosphere
-
-Using command line terminal in this directory.
-```
-$ meteor publish
+Logout using client side code:
+```js
+Meteor.logout()
 ```
 
 ## Licence
 
 MIT - See <LICENCE> file in this directory.
-
-## Reference Messages (from Biocryptology OpenId Guide V2.00)
-
-### Bad Claims Example
-
-[CLAIMS] -> using a user claims json to receive only the requested values. http://localhost:8080/V1/auth?client_id=biocryptology&scope=openid&state=170894&redirect_uri=http://biocryptology.net&response_type=token&nonce=asas&claims={"userinfo":{"address":null,"nickname":null,"email":null}}
-
-## Example Messages
-OATH2 Implicit Flow? VS OpenId Connect?
-
-Demo Auth Request
-https://is.sb.biocryptology.net/V1/auth?client_id=1809040824169161LhyBYDM3Z4441u&response_type=code&nonce=aILaN0rQQUKRr5eopvJ6uFjHXWezn_wfiGwxXTIfprV&redirect_uri=http%3A%2F%2F160.226.132.146%3A3200%2F_oauth%2Fbiocryptology&state=eyJsb2dpblN0eWxlIjoicG9wdXAiLCJjcmVkZW50aWFsVG9rZW4iOiJhSUxhTjByUVFVS1JyNWVvcHZKNnVGakhYV2V6bl93ZmlHd3hYVElmcHJWIiwiaXNDb3Jkb3ZhIjpmYWxzZX0%3D&scope=email%20openid&claims=%7B%22userinfo%22%3A%7B%22given_name%22%3A%7B%22essential%22%3Atrue%7D%2C%22family_name%22%3A%7B%22essential%22%3Atrue%7D%2C%22prefered_username%22%3A%7B%22essential%22%3Atrue%7D%2C%22locale%22%3A%7B%22essential%22%3Atrue%7D%7D%2C%22id_token%22%3A%7B%22auth_time%22%3A%7B%22essential%22%3Atrue%7D%7D%7D
-
-Demo Auth Response
-http://160.226.132.146:3200/_oauth/biocryptology?state=eyJsb2dpblN0eWxlIjoicG9wdXAiLCJjcmVkZW50aWFsVG9rZW4iOiJhSUxhTjByUVFVS1JyNWVvcHZKNnVGakhYV2V6bl93ZmlHd3hYVElmcHJWIiwiaXNDb3Jkb3ZhIjpmYWxzZX0%3D&code=pH-arMcPM8NVfqaMWvr5dQ

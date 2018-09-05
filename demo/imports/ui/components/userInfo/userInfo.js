@@ -15,8 +15,10 @@ Template.userInfo.onRendered(() => {
 
 // helpers
 Template.userInfo.helpers({
-  userId() {
-    return Meteor.userId()
+  user() {
+    const user = Meteor.user()
+    console.log(user)
+    return user
   }
 })
 

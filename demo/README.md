@@ -1,32 +1,44 @@
-# How to use the Meteor Biocryptology Demo Application
+# meteor-biocryptology-demo
+
+Demo Application showing Login with Biocryptology on Meteor.
+
+# Running the demo on localhost
 
 1. Deploy app to a server, it does not work on local host due to callbacks.
 2. Setup plugin on [Biocryptology sandbox](https://id.sb.biocryptology.net/).
 Loging to sandbox profile for test user HANSCANA HANSSA.
 3. Click on Plug-ins in left side menu. Click on 'ADD PLUGIN' button.
-4. Add the callback URL to the plugin, e.g. ```https://biocryptology.eu.meteorapp.com/_oauth/biocryptology```
+4. Add the callback URL with your local hosts's public IP and an open inbound port to the plugin, e.g. ```http://160.226.132.146:3200/_oauth/biocryptology```
 5. Tick the generate a secret checkbox.
 6. Save the plugin, open it again and retrieve the secret and the client id.
 7. Add the secret and client id to settings-development
-8. Deploy meteor app to your host.
-5. Open a browser and point it to root url e.g.```https://biocryptology.eu.meteorapp.com```
+8. Start a VPN on your local machine
+9. Start the app using the NPM script in package.json: ```$ meteor npm run start```
+10. Open a browser and point it to your external ip address and port e.g.```
+https://160.226.132.146:3200/```
+11. Click on login. A popup should open. Click on link device. Click on generate result. You should be logged in with email
 
-# Example settings-production.json
+You can revoke the login and force re-authentication on [MyPlaces in the Sandbox](https://id.sb.biocryptology.net/#/user/personal/places). This will not log you out of the demo, but should require new authentication after the auth token  expires, or after logout button was pressed on the demo.
 
-This is an example settings file for deploying to Galaxy.
-```
+## Configuration
+
+In ```settings-developement.json```:
+```json
 {
-  "galaxy.meteor.com": {
-     "env": {
-       "MONGO_URL": "MONGO-DB-URI"
-     }
-   },
   "biocryptology": {
     "loginStyle":  "popup",
-    "clientId": "YOUR-PLUGIN-CLIENT-ID",
-    "secret": "YOUR-PLUGIN-SECRET",
-    "claims": ["email_verified", "name", "surname"],
-    "callbackUrl": "https://biocryptology.eu.meteorapp.com/_oauth/biocryptology"
+    "clientId": "your-dev-client-id",
+    "secret": "your-dev-secret",
+    "scopes": ["email", "openid"],
+    "claims": ["given_name", "family_name", "prefered_username", "locale"],
+    "callbackUrl": "http://160.226.132.146:3200/_oauth/biocryptology"
   }
 }
 ```
+
+Note that on a local host environment the callbackUrl must be specified in your settings in order to defined your external IP and an open inbound port where the server is running on your machine; this is not needed for PROD. You will also need to use a VPN in order to run locally so that your external IP resolves for the callback from the authentication server.
+
+
+## Licence
+
+MIT - See <LICENCE> file in this directory.

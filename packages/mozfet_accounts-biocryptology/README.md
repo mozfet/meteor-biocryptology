@@ -2,63 +2,62 @@
 
 Biocryptology OpenID Connect for Meteor Accounts.
 
-This package is designed for use with the ```mozfet:biocryptology``` package which contains the Biocryptology OpenID Connect flow.
+This package is uses the ```mozfet:biocryptology``` package which contains the Biocryptology OpenID Connect flow.
+
+# meteor-biocryptology
+
+Login with Biocryptology on Meteor.
 
 ## Installation
-Using command line terminal, in your application's project folder
+
+Use the command line terminal in your project directory.
 ```
-$ meteor add accounts-core
 $ meteor add mozfet:accounts-biocryptology
 ```
 
 ## Configuration
 
-The following configuration items are available:
-* loginStyle: optional - 'popup' (default) or 'redirect'
-* clientId: OIDC client identifier
-* secret: OIDC client shared secret
-* userFields: A optional list of fields to be added to Meteor.user().services.biocryptology. Defaults to 'email_verified'.
+Create ```settings-developement.json``` and ```settings-production.json``` in app project folder. Use sandbox clientId and secret in ```settings-developement.json```. Use live clientId and secret in ```settings-developement.json```. Do not upload unencrypted ```settings-production.json``` to source code repositories for security reasons.
 
-In Meteor settings.json add server side only key:
-```
-"biocryptology": {
-  "loginStyle":  "popup",
-  "clientId": "my-client-id",
-  "secret": "my-client-secret",
-  "claims": ["email_verified", "name", "surname"]
+In ```settings-developement.json``` add:
+```json
+{
+  "biocryptology": {
+    "loginStyle":  "popup",
+    "clientId": "your-dev-client-id",
+    "secret": "your-dev-secret",
+    "scopes": ["email", "openid"],
+    "claims": ["given_name", "family_name", "prefered_username", "locale"],
+    "callbackUrl": "http://160.226.132.146:3200/_oauth/biocryptology"
+  }
 }
 ```
+Note that on a local host environment the callbackUrl is needed to defined your external IP and an open inbound port where your DEVC server is running. You will also need to use a VPN in order to run locally so that your external IP resolves for the callback from the authentication server.
+
+In ```settings-production.json``` add:
+```
+{
+  "biocryptology": {
+    "loginStyle":  "popup",
+    "clientId": "your-prod-client-id",
+    "secret": "your-prod-secret",
+    "scopes": ["email", "openid"],
+    "claims": ["given_name", "family_name", "prefered_username", "locale"]
+  }
+}
+```
+Note that in PROD you should not specify the callback URL, it will be detected by automagically by Meteor.
 
 ## Usage
 
-In client side code:
+Login using client side code:
 ```js
 Meteor.loginWithBiocryptology()
 ```
 
-## Unit Testing
-
-Install test frameworks
-```
-$ meteor npm install
-```
-
-Run tests
-```
-$ meteor npm run test
-```
-
-For client side tests open browser and point it to ```localhost:3000```
-
-## Integration Testing
-
-No local development environment integration testing is currently possible due to limitations with the Biocryptology sandbox.
-
-## Publish to Atmosphere
-
-Using command line terminal in this directory.
-```
-$ meteor publish
+Logout using client side code:
+```js
+Meteor.logout()
 ```
 
 ## Licence
