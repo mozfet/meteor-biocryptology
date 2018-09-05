@@ -1,7 +1,7 @@
 Package.describe({
   name: 'mozfet:biocryptology',
   summary: 'OpenID Connect flow implementation for Biocryptology on Meteor.',
-  version: '0.0.6',
+  version: '1.0.0',
   git: 'https://github.com/mozfet/meteor-biocryptology.git'
 });
 

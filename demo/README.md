@@ -4,21 +4,22 @@ Demo Application showing Login with Biocryptology on Meteor.
 
 # Running the demo on localhost
 
-1. Deploy app to a server, it does not work on local host due to callbacks.
+1. Clone this git repository and navigate to this directory on you local machine.
 2. Setup plugin on [Biocryptology sandbox](https://id.sb.biocryptology.net/).
 Loging to sandbox profile for test user HANSCANA HANSSA.
 3. Click on Plug-ins in left side menu. Click on 'ADD PLUGIN' button.
 4. Add the callback URL with your local hosts's public IP and an open inbound port to the plugin, e.g. ```http://160.226.132.146:3200/_oauth/biocryptology```
 5. Tick the generate a secret checkbox.
 6. Save the plugin, open it again and retrieve the secret and the client id.
-7. Add the secret and client id to settings-development
-8. Start a VPN on your local machine
-9. Start the app using the NPM script in package.json: ```$ meteor npm run start```
-10. Open a browser and point it to your external ip address and port e.g.```
+7. Add the secret and client id to settings-development.json
+8. Connect to a VPN from your local machine.
+9. Install node dependancies: ```$ meteor npn install```.
+10. Start the app ```$ meteor npm run start```.
+11. Open a browser and point it to your external ip address and port e.g.```
 https://160.226.132.146:3200/```
-11. Click on login. A popup should open. Click on link device. Click on generate result. You should be logged in with email
+12. Click on login. A popup should open. Click on link device. Click on generate result. You should be logged in with email
 
-You can revoke the login and force re-authentication on [MyPlaces in the Sandbox](https://id.sb.biocryptology.net/#/user/personal/places). This will not log you out of the demo, but should require new authentication after the auth token  expires, or after logout button was pressed on the demo.
+You can revoke the login and force re-authentication on [MyPlaces in the Sandbox](https://id.sb.biocryptology.net/#/user/personal/places). This will not log you out of the demo, but should require new authentication after the auth token  expires, or after the logout button was pressed on the demo.
 
 ## Configuration
 
