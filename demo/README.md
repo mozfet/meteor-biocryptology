@@ -21,7 +21,7 @@ Loging to sandbox profile for test user HANSCANA HANSSA.
 10. Start the app ```$ meteor npm run start```.
 11. Open a browser and point it to your external ip address and port e.g.```
 https://160.226.132.146:3200/```
-12. Click on login. A popup should open. Click on link device. Click on generate result. You should be logged in with email
+12. Click on login. A popup should open. Click on link device. Click on generate result. You should be logged in with email.
 
 You can revoke the login and force re-authentication on [MyPlaces in the Sandbox](https://id.sb.biocryptology.net/#/user/personal/places). This will not log you out of the demo, but should require new authentication after the auth token  expires, or after the logout button was pressed on the demo.
 

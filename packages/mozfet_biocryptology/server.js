@@ -14,7 +14,11 @@ Meteor.startup(async function () {
   if (_.isObject(Meteor.settings.biocryptology)) {
 
     // retrieve configuration from biocryptology server and meteor settings
-    const openIdConfig = await Biocryptology.requestConfiguration()
+    const configPromise = Biocryptology.requestConfiguration()
+    configPromise.catch(error => {
+      throw new Meteor.Error('BIOCRYPTOLOGY', error)
+    })
+    const openIdConfig = await configPromise
     config = Meteor.settings.biocryptology
     config.authorization_endpoint = openIdConfig.authorization_endpoint
     config.token_endpoint = openIdConfig.token_endpoint
@@ -39,9 +43,9 @@ Meteor.startup(async function () {
  * @throws {Metoer.Error} - In the even of an error
  **/
 Biocryptology.requestConfiguration = function() {
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     HTTP.get(
-      'http://is.sb.biocryptology.net/.well-known/openid-configuration',
+      Meteor.settings.biocryptology.wellknownConfig,
       (error, result) => {
         if (error) {
           console.error(error)

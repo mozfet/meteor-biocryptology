@@ -18,6 +18,7 @@ In ```settings-developement.json``` add:
 ```json
 {
   "biocryptology": {
+    "wellknownConfig": "http://is.sb.biocryptology.net/.well-known/openid-configuration",
     "loginStyle":  "popup",
     "clientId": "your-dev-client-id",
     "secret": "your-dev-secret",
@@ -33,6 +34,7 @@ In ```settings-production.json``` add:
 ```
 {
   "biocryptology": {
+    "wellknownConfig": "http://is.biocryptology.com/.well-known/openid-configuration",
     "loginStyle":  "popup",
     "clientId": "your-prod-client-id",
     "secret": "your-prod-secret",

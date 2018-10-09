@@ -1,5 +1,6 @@
 {
   "biocryptology": {
+    "wellknownConfig": "http://is.sb.biocryptology.net/.well-known/openid-configuration",
     "loginStyle":  "popup",
     "clientId": "1809040824169161LhyBYDM3Z4441u",
     "secret": "1z5L9c4nZZC5v",

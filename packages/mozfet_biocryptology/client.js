@@ -9,7 +9,8 @@ export default Biocryptology
 // @param credentialRequestCompleteCallback {Function} Callback function to call on
 //   completion. Takes one argument, credentialToken on success, or Error on
 //   error.
-Biocryptology.requestCredential = async function (options, credentialRequestCompleteCallback) {
+Biocryptology.requestCredential =
+    async function (options, credentialRequestCompleteCallback) {
 
   // support both (options, callback) and (callback).
   if (!credentialRequestCompleteCallback && typeof options === 'function') {

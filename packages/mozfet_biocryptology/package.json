@@ -1,6 +1,6 @@
 {
   "name": "meteor-biocryptology",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "OpenID Connect flow implementation for Biocryptology on Meteor.",
   "main": "server.js",
   "scripts": {
