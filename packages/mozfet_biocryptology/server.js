@@ -73,13 +73,13 @@ OAuth.registerService('biocryptology', 2, null, function (query) {
       // console.log('Biocryptology Service Query', query)
 
       var token = getToken(query)
-      console.log('biocryptology service token:', token)
+      // console.log('biocryptology service token:', token)
 
       var tokenContent = getTokenContent(token.id_token)
-      console.log('biocryptologuy id token content:', tokenContent)
+      // console.log('biocryptologuy id token content:', tokenContent)
 
       var userinfo = getUserInfo(token);
-      console.log('biocryptology service userinfo:', userinfo);
+      // console.log('biocryptology service userinfo:', userinfo);
 
       var serviceData = {
         id: userinfo.sub,
@@ -89,7 +89,7 @@ OAuth.registerService('biocryptology', 2, null, function (query) {
         email: userinfo.email,
         refreshToken: token.refresh_token
       }
-      console.log('serviceData:', serviceData)
+      // console.log('serviceData:', serviceData)
 
       return {
         serviceData,

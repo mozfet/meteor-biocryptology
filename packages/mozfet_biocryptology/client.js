@@ -64,9 +64,9 @@ Biocryptology.requestCredential =
   }
   // console.log('claims', claims)
   const claimsJson = EJSON.stringify(claims)
+  // console.log('claimsJson', claimsJson)
   loginUrl += '&claims='+encodeURIComponent(claimsJson)
-  // loginUrl += '&claims='+claimsJson
-  console.log('loginURL: ' + loginUrl)
+  // console.log('loginURL: ' + loginUrl)
 
   // prepare popup options
   options.popupOptions = options.popupOptions || {};
